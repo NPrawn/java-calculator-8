@@ -12,6 +12,9 @@ public class StringCalculator {
             return 0;
         }
 
+        // 문자열 내부 공백 제거 기능
+        input = input.replaceAll("\\s+", "");
+
         return 0;
     }
 }
