@@ -107,7 +107,7 @@ class ApplicationTest extends NsTest {
     @Test
     void 정수_덧셈_오버플로우() {
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException("9223372036854775807, 500,"))
+                assertThatThrownBy(() -> runException("9223372036854775807, 500"))
                         .isInstanceOf(ArithmeticException.class)
         );
     }
