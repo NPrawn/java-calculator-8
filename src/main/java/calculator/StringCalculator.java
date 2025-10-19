@@ -1,7 +1,6 @@
 package calculator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -9,7 +8,6 @@ public class StringCalculator {
 
     /**
      * 문자열 덧셈 계산기의 진입점
-     *  - 이후 단계에서 문자열 파싱, 검증, 계산 로직을 구현할 예정
      */
     public static float add(String input) {
         // null 혹은 빈 문자열 입력시 0 반환
@@ -69,6 +67,27 @@ public class StringCalculator {
 
         // 숫자를 구분자로 분리
         String[] tokens = numbers.split(regex);
+
+        for (String token : tokens) {
+            if (token.isEmpty()) {
+                throw new IllegalArgumentException("연속된 구분자 또는 잘못된 입력 형식입니다.");
+            }
+
+            // 숫자 형식인지 확인
+            if (!token.matches("^[0-9]+(\\.[0-9]+)?$")) {
+                throw new IllegalArgumentException("숫자가 아닌 값이 포함되어 있습니다: " + token);
+            }
+
+            // 음수, 0 검증
+            if (token.startsWith("-") || token.equals("0")) {
+                throw new IllegalArgumentException("음수 또는 0은 입력할 수 없습니다: " + token);
+            }
+
+            // 잘못된 실수 형식
+            if (token.contains("..")) {
+                throw new IllegalArgumentException("잘못된 실수 형식입니다." + token);
+            }
+        }
 
         return 0;
     }
