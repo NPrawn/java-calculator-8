@@ -132,7 +132,7 @@ class ApplicationTest extends NsTest {
     void 실수_파싱_범위초과() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("350282350000000000000000000000000000000.0, 500"))
-                        .isInstanceOf(IllegalArgumentException.class)
+                        .isInstanceOf(ArithmeticException.class)
         );
     }
 
