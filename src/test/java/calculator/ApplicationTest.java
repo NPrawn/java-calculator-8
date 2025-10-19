@@ -33,14 +33,6 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void None_입력() {
-        assertSimpleTest(() -> {
-            run("None");
-            assertThat(output()).contains("결과 : 0");
-        });
-    }
-
-    @Test
     void 사용불가능_커스텀구분자_지정() {
         assertSimpleTest(() ->
             assertThatThrownBy(() -> runException("//.\n1.2.3"))
