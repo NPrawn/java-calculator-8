@@ -89,6 +89,47 @@ public class StringCalculator {
             }
         }
 
-        return 0;
+        // 숫자 덧셈 기능
+
+        boolean hasFloat = false;
+        float floatSum = 0f;
+        long longSum = 0L;
+
+        for (String token: tokens) {
+            if (token.contains(".")) {
+                hasFloat = true;
+                float value = Float.parseFloat(token);
+
+                if (Float.isNaN(value)) {
+                    throw new IllegalArgumentException("유효하지 않은 실수 입력입니다." + token);
+                }
+
+                floatSum += value;
+
+                if (Float.isInfinite(floatSum)) {
+                    throw new ArithmeticException("실수 덧셈 오버플로우 발생");
+                }
+            } else {
+                long value = Long.parseLong(token);
+                try {
+                    longSum = Math.addExact(longSum, value);
+                } catch (ArithmeticException e) {
+                    throw new ArithmeticException("정수 덧셈 오버플로우 발생");
+                }
+            }
+        }
+
+        if (hasFloat){
+            float result = floatSum + longSum;
+            if (Float.isInfinite(result)){
+                throw new ArithmeticException("실수 덧셈 오버플로우 발생");
+            }
+            if (Float.isNaN(result)){
+                throw new IllegalArgumentException("NaN(연산불능) 발생");
+            }
+            return result;
+        }
+
+        return longSum;
     }
 }
